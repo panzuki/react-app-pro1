@@ -30,19 +30,19 @@ jobs:
         name: build
         path: build
 
-      # `react-app`フォルダにビルドファイルをコピー
-      - name: Copy build files to react-app
-        run: |
-          rm -rf react-app/*  # react-appフォルダを空にする
-          cp -r build/* react-app/  # buildフォルダの内容をreact-appにコピー
+    # `react-app`フォルダにビルドファイルをコピー
+    - name: Copy build files to react-app
+      run: |
+        rm -rf react-app/*  # react-appフォルダを空にする
+        cp -r build/* react-app/  # buildフォルダの内容をreact-appにコピー
 
-      # 変更をGitHubにコミット＆プッシュ
-      - name: Commit and Push Changes
-        run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git add react-app
-          git commit -m "Update react-app with latest build"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # 変更をGitHubにコミット＆プッシュ
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add react-app
+        git commit -m "Update react-app with latest build"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
