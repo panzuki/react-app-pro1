@@ -1,0 +1,69 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* React Modalのスタイル */
+.ReactModal__Overlay {
+  z-index: 1050 !important;  /* モーダルを前面に表示 */
+}
+
+/* モーダルコンテンツのスタイル */
+.ReactModal__Content {
+  position: relative;
+  width: 90%;          /* 幅を画面の90%に設定 */
+  max-width: 600px;    /* 最大幅を600pxに制限 */
+  max-height: 80vh;    /* 最大高さを画面の80%に制限 */
+  margin: auto;        /* コンテンツを中央に配置 */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;    /* 内容が多い場合にスクロールを有効にする */
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* モーダル内の画像をレスポンシブに */
+.ReactModal__Content img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;  /* 画像が歪まないように表示 */
+}
+
+/* 地図のスタイル */
+.leaflet-container {
+  z-index: 1;  /* 地図をモーダルの後ろに表示 */
+}
