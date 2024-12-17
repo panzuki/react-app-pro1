@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # ubuntu-latestがubuntu-24.04に更新されるので、そのまま新しいバージョンを指定
 
     steps:
     - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
       run: npm run build
 
     - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # v4にアップデート
       with:
         name: build
         path: build
