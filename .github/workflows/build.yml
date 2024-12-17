@@ -61,7 +61,6 @@ jobs:
         git add .
         git commit -m "Update react-app in 3sp with latest build from react-app-pro1"
         git push
-
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
   
