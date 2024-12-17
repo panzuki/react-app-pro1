@@ -127,7 +127,6 @@ const MapComponent = () => {
             <Popup>{history["タイトル"]}</Popup>
             </Marker>
         ))}
-//        </div>
           </MarkerClusterGroup>
       </MapContainer>
 
