@@ -45,14 +45,15 @@ jobs:
     # 4. `react-app-pro1` から `3sp` リポジトリの `react-app` フォルダにビルドファイルをコピー
     - name: Copy build files to 3sp/react-app
       run: |
-        cp -r ../react-app-pro1/build/* ./3sp/react-app/  # `react-app-pro1` から `3sp/react-app` にビルドファイルをコピー
+        #cp -r ../react-app-pro1/build/* ./3sp/react-app/  # `react-app-pro1` から `3sp/react-app` にビルドファイルをコ
+        cp -r ./build/* ./3sp/react-app/
 
     # 5. 変更を `3sp` リポジトリにコミット＆プッシュ
     - name: Commit and Push Changes to 3sp
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git add 3sp/
+        git add 3sp/react-app/
         git commit -m "Update react-app in 3sp with latest build from react-app-pro1"
         git push
       env:
