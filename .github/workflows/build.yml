@@ -30,8 +30,8 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        npm install react-leaflet@latest react-leaflet-markercluster@^3.0.0 leaflet@latest leaflet.markercluster@1.5.3
-
+        npm install react-leaflet@^4.2.0 react-leaflet-markercluster@^3.0.0 leaflet@latest leaflet.markercluster@1.5.3
+        npm audit fix
 
     - name: Build React app
       run: npm run build
