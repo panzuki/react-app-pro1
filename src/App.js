@@ -99,10 +99,8 @@ const MapComponent = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        
-//        <div id="marker-cluster-group">
-            <MarkerClusterGroup>
         {/* パンのデータマーカー */}
+      <MarkerClusterGroup>
         {filteredBreadData.map((bread, index) => (
           <Marker
             key={index}
