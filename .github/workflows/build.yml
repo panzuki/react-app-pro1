@@ -24,26 +24,26 @@ jobs:
     - name: Build React app
       run: npm run build
 
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4  # v4にアップデート
+    # 3. `3sp` リポジトリをチェックアウト
+    - name: Checkout 3sp repository
+      uses: actions/checkout@v4
       with:
-        name: build
-        path: build
-        
-    # `react-app`フォルダにビルドファイルをコピー
-    - name: Copy build files to react-app
-      run: |
-        cd react-app  # 3sp リポジトリ内の react-app フォルダに移動
-        rm -rf *  # react-appフォルダを空にする
-        cp -r ../build/* ./  # 上の階層の build フォルダの内容をコピー
+        repository: panzuki/3sp
+        ref: main
+        path: 3sp  # `3sp` フォルダ内にチェックアウト
 
-    # 変更をGitHubにコミット＆プッシュ
-    - name: Commit and Push Changes
+    # 4. `react-app-pro1` から `3sp` リポジトリの `react-app` フォルダにビルドファイルをコピー
+    - name: Copy build files to 3sp/react-app
+      run: |
+        cp -r ../react-app-pro1/build/* ./3sp/react-app/  # `react-app-pro1` から `3sp/react-app` にビルドファイルをコピー
+
+    # 5. 変更を `3sp` リポジトリにコミット＆プッシュ
+    - name: Commit and Push Changes to 3sp
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git add react-app
-        git commit -m "Update react-app with latest build"
+        git add 3sp/react-app
+        git commit -m "Update react-app in 3sp with latest build from react-app-pro1"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
