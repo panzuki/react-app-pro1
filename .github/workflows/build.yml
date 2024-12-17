@@ -66,9 +66,11 @@ jobs:
     - name: Update parent repository with submodule changes
       run: |
         cd 3sp
-        git add react-app
+        git pull origin main  # 最新の状態を取得
+        git add react-app  # サブモジュールの更新を親リポジトリに反映
         git commit -m "Update submodule react-app"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
         
