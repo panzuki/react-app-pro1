@@ -2,9 +2,14 @@ import React, { useState, useEffect } from "react";
 import L from "leaflet";  // Leafletをインポート
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "leaflet.markercluster/dist/MarkerCluster.css";
-import "leaflet.markercluster/dist/MarkerCluster.Default.css";
-import "leaflet.markercluster"; // leaflet.markerclusterをインポート
+//import "leaflet.markercluster/dist/MarkerCluster.css";
+//import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+//import "leaflet.markercluster"; // leaflet.markerclusterをインポート
+
+import "leaflet.markercluster/dist/leaflet.markercluster.css";
+import "leaflet.markercluster/dist/leaflet.markercluster.js";
+import { MarkerClusterGroup } from "react-leaflet";
+
 import Modal from "react-modal";
 import Papa from "papaparse";
 
@@ -95,7 +100,8 @@ const MapComponent = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
         
-        <div id="marker-cluster-group">
+//        <div id="marker-cluster-group">
+            <MarkerClusterGroup>
         {/* パンのデータマーカー */}
         {filteredBreadData.map((bread, index) => (
           <Marker
@@ -123,7 +129,8 @@ const MapComponent = () => {
             <Popup>{history["タイトル"]}</Popup>
             </Marker>
         ))}
-        </div>
+//        </div>
+          </MarkerClusterGroup>
       </MapContainer>
 
       {/* モーダル */}
