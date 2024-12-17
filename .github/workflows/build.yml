@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04  # ubuntu-latestがubuntu-24.04に更新されるので、そのまま新しいバージョンを指定
+    permissions:
+      contents: write  # プッシュのために書き込み権限を付与
 
     steps:
     - name: Checkout code
