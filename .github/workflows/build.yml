@@ -29,12 +29,13 @@ jobs:
       with:
         name: build
         path: build
-
+        
     # `react-app`フォルダにビルドファイルをコピー
     - name: Copy build files to react-app
       run: |
-        rm -rf react-app/*  # react-appフォルダを空にする
-        cp -r build/* react-app/  # buildフォルダの内容をreact-appにコピー
+        cd react-app  # 3sp リポジトリ内の react-app フォルダに移動
+        rm -rf *  # react-appフォルダを空にする
+        cp -r ../build/* ./  # 上の階層の build フォルダの内容をコピー
 
     # 変更をGitHubにコミット＆プッシュ
     - name: Commit and Push Changes
