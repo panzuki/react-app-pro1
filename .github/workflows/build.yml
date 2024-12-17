@@ -30,8 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        npm install react-leaflet --save
-        npm i leaflet
+        npm install react-leaflet react-leaflet-markercluster@next leaflet.markercluster leaflet
 
     - name: Build React app
       run: npm run build
