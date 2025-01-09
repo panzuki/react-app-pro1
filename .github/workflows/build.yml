@@ -3,16 +3,16 @@ name: React App Build
 on:
   push:
     branches:
-      - main  # mainブランチに変更があったときに実行
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-24.04  # ubuntu-latestがubuntu-24.04に更新されるので、そのまま新しいバージョンを指定
+    runs-on: ubuntu-latest
     permissions:
-      contents: write  # プッシュのために書き込み権限を付与
+      contents: write
 
     steps:
-    - name: Checkout code
+    - name: Checkout react-app-pro1 code
       uses: actions/checkout@v3
       with:
         submodules: true
@@ -22,7 +22,6 @@ jobs:
       with:
         node-version: 18
 
-    # キャッシュを復元するステップを追加
     - name: Cache node modules
       uses: actions/cache@v3
       with:
@@ -30,48 +29,42 @@ jobs:
         key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-modules-
-          
+
     - name: Install dependencies
-      run: |
-        npm install
+      run: npm install
 
     - name: Build React app
       run: npm run build
 
-    # 3. `3sp` リポジトリをチェックアウト
+    - name: Commit and Push Build Files to react-app-pro1
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add build/
+        git commit -m "Save build files to react-app-pro1/build" || echo "No changes to commit"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Checkout 3sp repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
       with:
         repository: panzuki/3sp
         ref: main
-        path: 3sp  # `3sp` フォルダ内にチェックアウト
+        path: 3sp
 
-    # 4. `react-app-pro1` から `3sp` リポジトリの `react-app` フォルダにビルドファイルをコピー
     - name: Copy build files to 3sp/react-app
       run: |
-        #cp -r ../react-app-pro1/build/* ./3sp/react-app/  # `react-app-pro1` から `3sp/react-app` にビルドファイルをコ
-        cp -r ./build/* ./3sp/react-app/
+        rm -rf 3sp/react-app/*  # react-appディレクトリ内をクリーンアップ
+        cp -r build/* 3sp/react-app/
 
-    # 5. 変更を `3sp` リポジトリにコミット＆プッシュ
     - name: Commit and Push Changes to 3sp
       run: |
-        cd 3sp/react-app  # サブモジュール内に移動
+        cd 3sp
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git add .
-        git commit -m "Update react-app in 3sp with latest build from react-app-pro1"
+        git add react-app/
+        git commit -m "Update react-app in 3sp with latest build from react-app-pro1" || echo "No changes to commit"
         git push
       env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-  
-    # 6. 親リポジトリにサブモジュールの更新を反映
-    - name: Update parent repository with submodule changes
-      run: |
-        cd 3sp
-        git pull origin main  # 最新の状態を取得
-        git add react-app  # サブモジュールの更新を親リポジトリに反映
-        git commit -m "Update submodule react-app"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-        
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
